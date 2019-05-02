@@ -1,0 +1,38 @@
+SELECT CURTIME();
+ 
+SELECT CURDATE()';
+ 
+SELECT DAYOFWEEK(CURDATE());
+SELECT DAYOFWEEK(NOW());
+SELECT DATE_FORMAT(NOW(), '%w') + 1;
+ 
+SELECT DAYNAME(NOW());
+SELECT DATE_FORMAT(NOW(), '%W');
+ 
+SELECT DATE_FORMAT(CURDATE(), '%m/%d/%Y'');
+ 
+SELECT DATE_FORMAT(NOW(), '%M %D at %h:%i');
+ 
+CREATE TABLE tweets(
+    content VARCHAR(140),
+    username VARCHAR(20),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+SELECT title, released_year FROM books 
+WHERE released_year BETWEEN 2004 AND 2015;
+ 
+SELECT title, released_year FROM books 
+WHERE released_year NOT BETWEEN 2004 AND 2015;
+SELECT CAST('2017-05-02' AS DATETIME);
+SELECT title, author_lname FROM books
+WHERE author_lname IN ('Carver', 'Lahiri', 'Smith');
+SELECT title, released_year FROM books
+WHERE released_year >= 2000 AND
+released_year % 2 != 0;
+SELECT title,
+    CASE 
+        WHEN stock_quantity BETWEEN 0 AND 50 THEN '*'
+        WHEN stock_quantity BETWEEN 51 AND 100 THEN '**'
+        ELSE '***'
+    END AS STOCK
+FROM books;

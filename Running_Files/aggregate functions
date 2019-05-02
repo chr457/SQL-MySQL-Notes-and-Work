@@ -1,0 +1,12 @@
+SELECT COUNT(author_fname) FROM books;
+SELECT author_fname, author_lname, COUNT(*) FROM books GROUP BY author_lname;
+SELECT MIN(pages) FROM books;
+SELECT MAX(pages) FROM books;
+SELECT
+ CONCAT(author_fname, ' ', author_lname) AS author,
+ MAX(pages) AS 'longest book'
+FROM books
+GROUP BY author_lname,
+         author_fname;
+SELECT AVG(released_year)(same as sum, min, max)
+FROM books;

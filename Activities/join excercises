@@ -1,0 +1,109 @@
+-- The Schema
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100)
+);
+ 
+ 
+CREATE TABLE papers (
+    title VARCHAR(100),
+    grade INT,
+    student_id INT,
+    FOREIGN KEY (student_id) 
+        REFERENCES students(id)
+        ON DELETE CASCADE
+);
+-- The Starter Data
+INSERT INTO students (first_name) VALUES 
+('Caleb'), 
+('Samantha'), 
+('Raj'), 
+('Carlos'), 
+('Lisa');
+ 
+INSERT INTO papers (student_id, title, grade ) VALUES
+(1, 'My First Book Report', 60),
+(1, 'My Second Book Report', 75),
+(2, 'Russian Lit Through The Ages', 94),
+(2, 'De Montaigne and The Art of The Essay', 98),
+(4, 'Borges and Magical Realism', 89);
+ EXERCISE 1
+SELECT first_name, title, grade
+FROM students
+INNER JOIN papers
+    ON students.id = papers.student_id
+ORDER BY grade DESC;
+-- ALT SOLUTION
+SELECT first_name, title, grade
+FROM students
+RIGHT JOIN papers
+    ON students.id = papers.student_id
+ORDER BY grade DESC;
+-- PROBLEM 2
+SELECT first_name, title, grade
+FROM students
+LEFT JOIN papers
+    ON students.id = papers.student_id;
+-- PROBLEM 3
+SELECT
+    first_name,
+    IFNULL(title, 'MISSING'),
+    IFNULL(grade, 0)
+FROM students
+LEFT JOIN papers
+    ON students.id = papers.student_id;
+    
+-- PROBLEM 4
+SELECT
+    first_name,
+    IFNULL(AVG(grade), 0) AS average
+FROM students
+LEFT JOIN papers
+    ON students.id = papers.student_id
+GROUP BY students.id
+ORDER BY average DESC;
+-- PROBLEM 5
+SELECT first_name, 
+       Ifnull(Avg(grade), 0) AS average, 
+       CASE 
+         WHEN Avg(grade) IS NULL THEN 'FAILING' 
+         WHEN Avg(grade) >= 75 THEN 'PASSING' 
+         ELSE 'FAILING' 
+       end                   AS passing_status 
+FROM   students 
+       LEFT JOIN papers 
+              ON students.id = papers.student_id 
+GROUP  BY students.id 
+ORDER  BY average DESC;
+
+
+---Practice 1
+select title, rating from series  join reviews  on series.id = reviews.series_id; 
+---Practice 2
+select title, avg(rating) as 'avg_rating' from series  join reviews on series.id = reviews.series_id group by series.id order by avg_rating;
+---Practice 3
+select first_name, last_name, rating from reviewers join reviews on reviewers.id = reviews.reviewer_id;
+---Practice 4
+select title as 'unreviewed_series' from series left join reviews on series.id = reviews.series_id where rating is null;  
+---Practice 5
+select genre, round(avg(rating),2) as avg_rating from series join reviews on series.id = reviews.series_id group by genre;
+---Practice 6
+select first_name, last_name, count(reviews.id) as 'Count', ifnull(min(rating), 0) as 'Min', ifnull(max(rating), 0) as 'Max',
+ifnull(avg(rating), 0) as 'AVG', 
+    Case
+        when count(reviews.id) = 0 then 'INACTIVE'
+        else 'ACTIVE'
+    end as Status
+from reviews
+right join reviewers
+on reviewers.id = reviews.reviewer_id
+group by reviewers.id;
+---Practice 7
+select title, rating, concat(first_name, last_name) as 'Fullname' from reviewers
+    join reviews
+    on reviewers.id = reviews.reviewer_id
+    join series
+    on series.id = reviews.series_id;
+
+
+

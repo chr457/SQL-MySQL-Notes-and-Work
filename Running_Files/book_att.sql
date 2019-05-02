@@ -1,0 +1,3 @@
+-- select concat(substring(title, 1, 10), '...') as 'short title' from books;
+-- select concat(substring(replace(title, 'e' , '3'),1,10), '...') as 'weird string' from books;
+-- (can combine all of them)

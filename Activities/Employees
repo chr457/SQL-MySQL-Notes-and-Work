@@ -1,0 +1,12 @@
+create table Employees(
+id int not null auto_increment, 
+last_name varchar(20) not null, 
+first_name varchar(20) not null, 
+middle_name varchar(20) ,
+age int not null, 
+current_status varchar(100) not null default 'employed', 
+primary key(id)
+);
+
+insert into Employees (first_name, last_name, age)
+values ('Dora', 'Smith', 58);

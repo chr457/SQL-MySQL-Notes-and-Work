@@ -1,0 +1,45 @@
+Select * from <table>; (visualize table with all columns)
+SELECT age, breed, name, cat_id FROM cats; (order matters for visual)
+SELECT * FROM cats WHERE age=4; (field specified is not case sensitive)
+SELECT cat_id, age FROM cats WHERE cat_id=age;
+SELECT cat_id AS id, name FROM cats;(alaises)
+UPDATE cats SET breed='Shorthair' WHERE breed='Tabby'; (updating something within same category)
+UPDATE cats SET age=14 WHERE name='Misty';(updating something where the marker is)
+DELETE FROM cats WHERE name='Egg';(delete certain entries)
+Delete form cats;(delete all entries but leaves shell of the table intact) Different from drop table;
+*string functions*
+SELECT
+  CONCAT(author_fname, ' ', author_lname)
+FROM books; -smashes strings together and adds a space
+SELECT 
+    CONCAT_WS(' - ', title, author_fname, author_lname) 
+FROM books; -same as above but useful for seperators in long code
+SELECT SUBSTRING(title, 1, 10) AS 'short title' FROM books;(no space after substring)
+SELECT CONCAT
+    (
+        SUBSTRING(title, 1, 10),
+        '...'
+    )
+FROM books;(can combine)
+SELECT REVERSE('meow meow');
+SELECT CHAR_LENGTH('Hello World');
+SELECT UPPER('Hello World');
+SELECT LOWER('Hello World');
+SELECT DISTINCT CONCAT(author_fname,' ', author_lname) FROM books;
+ 
+SELECT DISTINCT author_fname, author_lname FROM books;
+SELECT title FROM books ORDER BY title;
+SELECT author_lname FROM books ORDER BY author_lname DESC;
+SELECT author_fname, author_lname FROM books 
+ORDER BY author_lname, author_fname;(can also use numbers to indicate)
+SELECT title, released_year FROM books 
+ORDER BY released_year DESC LIMIT 14;
+ 
+SELECT title, released_year FROM books 
+ORDER BY released_year DESC LIMIT 0,5;
+SELECT title FROM books LIMIT 5, 123219476457;(from certain row to end of table)
+SELECT title FROM books WHERE title LIKE '%the%';(% is a wildcard)(_ specifies one random charachter)(\ escape charachter to cancel out previous two)
+
+
+
+
