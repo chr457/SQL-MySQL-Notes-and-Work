@@ -1,4 +1,4 @@
--- Frind 5 oldest users
+-- Find 5 oldest users
 --select * from users order by created_at limit 5;
 
 -- Most popular registration day
